@@ -1,0 +1,66 @@
+definitions:
+  catalog_service.CreateCategory:
+    properties:
+      active:
+        type: boolean
+      name_en:
+        type: string
+      name_ru:
+        type: string
+      name_uz:
+        type: string
+      order_no:
+        type: integer
+      parent_id:
+        type: string
+      slug:
+        type: string
+    type: object
+  models.ResponseError:
+    properties:
+      error: {}
+    type: object
+  models.ResponseSuccess:
+    properties:
+      data: {}
+      metadata: {}
+    type: object
+info:
+  contact: {}
+paths:
+  /category:
+    post:
+      consumes:
+      - application/json
+      description: API for creating a category
+      parameters:
+      - description: Category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/catalog_service.CreateCategory'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.ResponseSuccess'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ResponseError'
+      summary: Create Category
+      tags:
+      - category
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
